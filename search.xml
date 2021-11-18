@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/11/14/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Data Structure -- Stack</title>
     <url>/2021/11/15/Data-Structure-Stack/</url>
     <content><![CDATA[<h1 id="What-is-stack"><a href="#What-is-stack" class="headerlink" title="What is stack"></a>What is stack</h1><p>Stack is a data structure that follow <strong>LIFO</strong> pricinple, new element are added in the end (push), and deletion of element also start from the end(pop)</p>
@@ -43,6 +25,67 @@
       <tags>
         <tag>Data Structure</tag>
         <tag>Stack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Making a sudoku game with Python I -- The sudoku generator</title>
+    <url>/2021/11/18/Making-a-sudoku-game-with-Python-I/</url>
+    <content><![CDATA[<h1 id="Making-a-sudoku-game-with-Python"><a href="#Making-a-sudoku-game-with-Python" class="headerlink" title="Making a sudoku game with Python"></a>Making a sudoku game with Python</h1><p>To make a sudoku game with python, we first have to think about how a sudoku game work.</p>
+<p>First, we need to have a board of 9*9 grid , with some empty space that we can fill in (which is the point of sudoku)</p>
+<p>this can be divided into 2 parts, </p>
+<ol>
+<li>We have generate a grid full of number that fit to sudoku rule</li>
+<li>Then we have to remove cells one by one, and make sure there can only be one solution everytime we remove a cells</li>
+</ol>
+<p>After preparing the board, we need to prepare a function that allow user to input number, and if possible, prevent user from entering the wrong number/invalid input.</p>
+<p>And finnally, we need to make a function to check if the answer (finished board) from user is correct, or not.</p>
+<span id="more"></span>
+
+<h1 id="The-sudoku-generator"><a href="#The-sudoku-generator" class="headerlink" title="The sudoku generator"></a>The sudoku generator</h1><p>But putting all 4 parts above in one post could be quite overwhelming, so it would be better to start by making a valid sudoku board first.</p>
+<p>Here is a of list of important function that we need to build</p>
+<ol>
+<li><p>A function to check if a input follow sudoku rule – check row, check column and check square</p>
+</li>
+<li><p>A function that use the above checking function , generate random input to fill up a board(A sudoku generator)</p>
+</li>
+<li><p>A function that can help randomly remove cell content a generate a playable sudoku</p>
+</li>
+<li><p>A function to similar to 2, but act as a solver, everytime a cell is removed, it can check how many solution are there.(A good sudoku should only has one solution)</p>
+</li>
+</ol>
+<h2 id="The-checking-function"><a href="#The-checking-function" class="headerlink" title="The checking function"></a>The checking function</h2><p>Let’s start with function 1:</p>
+<p>The below block of code is used to check if a new input is valid under the col/row rule of sudoku for specific grid.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#the check_rowcolumn function is to check if input number is duplciated in row/column</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_rowcolumn</span>(<span class="params">current_row:<span class="built_in">int</span>,current_column:<span class="built_in">int</span>,grid:<span class="built_in">list</span>,number:<span class="built_in">int</span></span>):</span> <span class="comment">#1,8</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(grid)):</span><br><span class="line">        <span class="keyword">if</span> grid[i][current_column]== number:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(grid[<span class="number">0</span>])):</span><br><span class="line">        <span class="keyword">if</span> grid[current_row][j] == number:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p>And the below block is used for checking the 3*3 square </p>
+<p>One tricky part is that we need to we only start at row/col 0,3,6.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#the check_square function is to check if the number input is duplcated in square(3*3)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_square</span>(<span class="params">current_row:<span class="built_in">int</span>,current_column:<span class="built_in">int</span>,grid:<span class="built_in">list</span>,number:<span class="built_in">int</span></span>):</span></span><br><span class="line">    <span class="comment">#check by 3*3 square for current value</span></span><br><span class="line">    current_row = current_row - (current_row % <span class="number">3</span>)</span><br><span class="line">    current_column = current_column - (current_column % <span class="number">3</span>)</span><br><span class="line">    <span class="comment">#start checking if this square has invalid value</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">            <span class="keyword">if</span> grid[current_row+x][current_column+y] == number:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="comment">#else:</span></span><br><span class="line">                <span class="comment">#check.add(grid[i+x][j+y])</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="To-fill-the-board"><a href="#To-fill-the-board" class="headerlink" title="To fill the board"></a>To fill the board</h2><p>Now that the checking function is finished, the next step is to generate a filled valid board using recursion and backtracking</p>
+<p>To generate the filled valid board, we need to make sure the following,</p>
+<ol>
+<li>the input must be random</li>
+<li>We need to find the location of the next valid cell</li>
+<li>everytime there is a new input, we check it with checking function to see if it pass</li>
+<li>we should backtrack and return to previous stack when meeting dead end, try another input in previous stack</li>
+</ol>
+<p>The finished function look like this</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fill_grid</span>(<span class="params">grid:<span class="built_in">list</span></span>):</span></span><br><span class="line">    random.shuffle(valid_number)</span><br><span class="line">    <span class="comment">#define base case</span></span><br><span class="line">    emtpy_cell = find_empty(grid) </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> emtpy_cell:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:   </span><br><span class="line">        <span class="comment">#mark next empty celxl</span></span><br><span class="line">        i,j = emtpy_cell</span><br><span class="line">    <span class="comment">#loop through 1-9</span></span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> valid_number:</span><br><span class="line">        <span class="keyword">if</span> check_rowcolumn(i,j,grid,value):</span><br><span class="line">            <span class="keyword">if</span> check_square(i,j,grid,value):</span><br><span class="line">                grid[i][j] = value</span><br><span class="line">                <span class="comment">#print(grid[i][j])</span></span><br><span class="line">                <span class="keyword">if</span> fill_grid(grid):</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    grid[i][j]=<span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="Detail-break-down"><a href="#Detail-break-down" class="headerlink" title="Detail break down"></a>Detail break down</h3><p>The base case to stop the recursion is when there is no more empty cell, which I use the find empty function below to locate empty cell</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_empty</span>(<span class="params">grid:<span class="built_in">list</span></span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(grid)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(grid[<span class="number">0</span>])):</span><br><span class="line">            <span class="keyword">if</span> grid[i][j] == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> i,j</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>if empty cell is found, we use the checkrow/col and check square function to check if the current randomly generated number fit</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> valid_number:</span><br><span class="line">    <span class="keyword">if</span> check_rowcolumn(i,j,grid,value):</span><br><span class="line">        <span class="keyword">if</span> check_square(i,j,grid,value):</span><br><span class="line">            grid[i][j] = value</span><br></pre></td></tr></table></figure>
+
+<p>After that we recursively run the function again and proceed to next empty cell, and only stop when the current stack return True, , which is when the base case is met</p>
+<p>And after the whole for loop, here come the key point of backtracking, <strong>grid[i][j]=0</strong>, we need to backtrack and return current cell value to 0.<br>Let’s think of an example like this, we have find ourself in a dead end where all 9 numbers can not fit in next empty cell, that means we have to proceed on next valid number in previous stack.<br>And if the remaining number in number list are not valid, that mean we have to 0 the current cell again, as number in current cell lead to dead end. Then we can go back to previous stack and repeat above process, until we find a new number that can make all the coming stack pass.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> valid_number:</span><br><span class="line">    <span class="keyword">if</span> check_rowcolumn(i,j,grid,value):</span><br><span class="line">        <span class="keyword">if</span> check_square(i,j,grid,value):</span><br><span class="line">            grid[i][j] = value</span><br><span class="line">            <span class="comment">#print(grid[i][j])</span></span><br><span class="line">            <span class="keyword">if</span> fill_grid(grid):</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">grid[i][j]=<span class="number">0</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>And this is pretty much the logic behind the generator, but a generator alone is not enough, as we then have to build function 3(remove cell) and function 4(check solution) mentioned above, if we need to build a valid board.<br>For that I will update it in later blog post.</p>
+]]></content>
+      <tags>
+        <tag>Python</tag>
+        <tag>Backtracking</tag>
       </tags>
   </entry>
 </search>
