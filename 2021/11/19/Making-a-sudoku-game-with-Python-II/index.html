@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"koklala321.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="What is stackStack is a data structure that follow LIFO pricinple, new element are added in the end (push), and deletion of element also start from the end(pop)">
+  <meta name="description" content="The sudoku generatorIn the last post I have mentioned above the sudoku generator that can generate a filled sudoku board.In this post we will talk about the remaining function that are needed to make">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Data Structure -- Stack">
-<meta property="og:url" content="https://koklala321.github.io/2021/11/15/Data-Structure-Stack/index.html">
+<meta property="og:title" content="Making-a-sudoku-game-with-Python-II">
+<meta property="og:url" content="https://koklala321.github.io/2021/11/19/Making-a-sudoku-game-with-Python-II/index.html">
 <meta property="og:site_name" content="Jack&#39;s workspace">
-<meta property="og:description" content="What is stackStack is a data structure that follow LIFO pricinple, new element are added in the end (push), and deletion of element also start from the end(pop)">
+<meta property="og:description" content="The sudoku generatorIn the last post I have mentioned above the sudoku generator that can generate a filled sudoku board.In this post we will talk about the remaining function that are needed to make">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-11-15T13:48:10.000Z">
-<meta property="article:modified_time" content="2021-11-15T13:48:10.198Z">
+<meta property="article:published_time" content="2021-11-19T19:06:04.000Z">
+<meta property="article:modified_time" content="2021-11-19T19:06:04.466Z">
 <meta property="article:author" content="Jack Tsai">
-<meta property="article:tag" content="Data Structure">
-<meta property="article:tag" content="Stack">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Backtracking">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://koklala321.github.io/2021/11/15/Data-Structure-Stack/">
+<link rel="canonical" href="https://koklala321.github.io/2021/11/19/Making-a-sudoku-game-with-Python-II/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Data Structure -- Stack | Jack's workspace</title>
+  <title>Making-a-sudoku-game-with-Python-II | Jack's workspace</title>
   
 
 
@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://koklala321.github.io/2021/11/15/Data-Structure-Stack/">
+    <link itemprop="mainEntityOfPage" href="https://koklala321.github.io/2021/11/19/Making-a-sudoku-game-with-Python-II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/Sunset.jpg">
@@ -198,7 +198,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Data Structure -- Stack
+          Making-a-sudoku-game-with-Python-II
         </h1>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-11-15 13:48:10" itemprop="dateCreated datePublished" datetime="2021-11-15T13:48:10+00:00">2021-11-15</time>
+              <time title="Created: 2021-11-19 19:06:04" itemprop="dateCreated datePublished" datetime="2021-11-19T19:06:04+00:00">2021-11-19</time>
             </span>
 
           
@@ -222,24 +222,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="What-is-stack"><a href="#What-is-stack" class="headerlink" title="What is stack"></a>What is stack</h1><p>Stack is a data structure that follow <strong>LIFO</strong> pricinple, new element are added in the end (push), and deletion of element also start from the end(pop)</p>
+        <h1 id="The-sudoku-generator"><a href="#The-sudoku-generator" class="headerlink" title="The sudoku generator"></a>The sudoku generator</h1><p>In the last post I have mentioned above the sudoku generator that can generate a filled sudoku board.<br>In this post we will talk about the remaining function that are needed to make a sudoku game.</p>
 <span id="more"></span>
 
-<p>In python, we can implement a stack simply by using a list, by using list.append or list.pop we can add/remove last element in list. If we want a faster insertion or deletion, we can use <strong>deque</strong>. Deque support fast insertion/deletion in both end of the array.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#implementaion with deque</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_example</span>():</span></span><br><span class="line">	example = deque()</span><br><span class="line">	example.append(<span class="string">&quot;a&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(example)</span><br><span class="line">	example.pop()</span><br><span class="line">	<span class="built_in">print</span>(example)</span><br></pre></td></tr></table></figure>
+<h2 id="A-remove-cell-function"><a href="#A-remove-cell-function" class="headerlink" title="A remove cell function"></a>A remove cell function</h2><p>As we have created a board of filled sudoku, next thing we have to do is add a function to remove cells.<br>The function must</p>
+<ol>
+<li>randomly choose a cell to remove</li>
+<li>The number of solution of the board must always be 1 , and if there is more than 1 solution, backtrack and restore the cell.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_cell</span>(<span class="params">difficulty:<span class="built_in">int</span>,grid:<span class="built_in">list</span></span>):</span></span><br><span class="line">    <span class="keyword">global</span> count</span><br><span class="line">    empty_cell = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> empty_cell &lt; difficulty:</span><br><span class="line">        target_row = random.randint(<span class="number">0</span>,<span class="number">8</span>)</span><br><span class="line">        target_col = random.randint(<span class="number">0</span>,<span class="number">8</span>)</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> grid[target_row][target_col]!=<span class="number">0</span>:</span><br><span class="line">            backup = grid[target_row][target_col]</span><br><span class="line">            grid[target_row][target_col] = <span class="number">0</span></span><br><span class="line">            <span class="comment">#create a deep copy of the current grid that is used for check_solution function to test with</span></span><br><span class="line">            copy_grid = copy.deepcopy(grid)</span><br><span class="line">            check_solution(copy_grid)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> count == <span class="number">1</span>:</span><br><span class="line">                empty_cell+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                grid[target_row][target_col] = backup</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> empty_cell,copy_grid</span><br></pre></td></tr></table></figure>
 
-<h2 id="What-can-stack-be-used-for"><a href="#What-can-stack-be-used-for" class="headerlink" title="What can stack be used for?"></a>What can stack be used for?</h2><h3 id="Next-greater-element"><a href="#Next-greater-element" class="headerlink" title="Next greater element"></a>Next greater element</h3><p>The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.</p>
-<p>Use leetcode question #496 as example</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/next-greater-element-i/">LeetCode Link</a></p>
-<p>To solve the problem, stack can be very useful.<br>We can create a hash table to store the result, and a stack to store the element we walk through.<br>Then we follow below logic:<br>Everytime we walk to a new element, compare it with the last element in stack.<br>If it is greater than the last element of stack, we can update the hash table and store down the result. And we <strong>pop</strong> the last element of stack.<br>We keep doing this until there are no element left in stack or stack[-1] &gt; new element<br>If not , we append the new element into the stack. then go to next element.</p>
-<p>Notice that in the stack, it is always sorted in descending order, as every new element added would be less than or equal to last element in stack, so it can only be in descending order, which make it a <strong>monotonic stack</strong>.</p>
-<p>The implementation of above leetcode quesion could look as follow:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">nextGreaterElement</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], nums2: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span></span><br><span class="line">        table = &#123;&#125;            </span><br><span class="line">        <span class="comment">#fill next greater element</span></span><br><span class="line">        stack = []</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums2)):</span><br><span class="line">            <span class="keyword">while</span> stack <span class="keyword">and</span> nums2[i]&gt;stack[-<span class="number">1</span>]:</span><br><span class="line">                table[stack[-<span class="number">1</span>]] = nums2[i]</span><br><span class="line">                stack.pop()</span><br><span class="line">                </span><br><span class="line">            stack.append(nums2[i])</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">for</span> ele <span class="keyword">in</span> stack:</span><br><span class="line">            table[ele] = -<span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        ans = [table[num] <span class="keyword">for</span> num <span class="keyword">in</span> nums1]   </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<p>The above function will keep deleting cell until number of cells deleted = input difficulty. Notice that a deepcopy of board is needed to be created, as if we pass the original copy to check_solution function, it will ruin the board.</p>
+<h2 id="Check-number-of-solution"><a href="#Check-number-of-solution" class="headerlink" title="Check number of solution"></a>Check number of solution</h2><p>The check_solution function is pretty much the same as the fill_grid function, the only difference is that we have to count everytime when we to finish the board, and we can not use random input(as we want to make sure the line up the potential solution one by one).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#we have to make a function that check number of solution</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_solution</span>(<span class="params">cur_grid:<span class="built_in">list</span></span>):</span></span><br><span class="line">    <span class="keyword">global</span> count</span><br><span class="line">    <span class="comment">#define base case</span></span><br><span class="line">    emtpy_cell = find_empty(cur_grid) </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> emtpy_cell:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:   </span><br><span class="line">        <span class="comment">#mark next empty cell</span></span><br><span class="line">        i,j = emtpy_cell</span><br><span class="line">    <span class="comment">#loop through 1-9, no need to random num as we are looking for solution only</span></span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10</span>):</span><br><span class="line">        <span class="keyword">if</span> count &gt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> check_rowcolumn(i,j,cur_grid,value):</span><br><span class="line">            <span class="keyword">if</span> check_square(i,j,cur_grid,value):</span><br><span class="line">                cur_grid[i][j] = value</span><br><span class="line">                <span class="comment">#print(grid[i][j])</span></span><br><span class="line">                <span class="keyword">if</span> check_solution(cur_grid):</span><br><span class="line">                    <span class="comment">#possible solition +=1</span></span><br><span class="line">                    count+=<span class="number">1</span></span><br><span class="line">                    <span class="comment">#break the current loop, backtrack for another possible solution</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">    <span class="comment">#reset current grid value to 0, backtrack to previous stack</span></span><br><span class="line">    cur_grid[i][j]=<span class="number">0</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="Binary-Tree-Inorder-Traversal"><a href="#Binary-Tree-Inorder-Traversal" class="headerlink" title="Binary Tree Inorder Traversal"></a>Binary Tree Inorder Traversal</h3><p>To do a inorder traversal , the order go like this left node –&gt; root –&gt; right node</p>
-<p>The way to do so in stack is to walk through the node on left side first, put it in stack . Once we have reach the left node, we pop the last element in stack and add it to ans array. then we go to the right node and add it to stack and proceed.</p>
-<p>The implementaion can look like this</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span>(<span class="params">self, root: <span class="type">Optional</span>[TreeNode]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span></span><br><span class="line">		stack = []</span><br><span class="line">		ans = []</span><br><span class="line"></span><br><span class="line">		cur = root</span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">or</span> stack !=[]:</span><br><span class="line">			<span class="keyword">while</span> cur <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">				stack.append(cur)</span><br><span class="line">				cur = cur.left</span><br><span class="line">			cur = stack.pop()</span><br><span class="line">			ans.append(cur.val)</span><br><span class="line">			cur = cur.right</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<p>Now that all major function are ready, we can actually create a sudoku game, but this game is still lacking a GUI that allow player to interact with. The library I choose to make GUI with is pygame, more detail on how I create the GUI will be on next post.</p>
 
     </div>
 
@@ -249,8 +247,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
-              <a href="/tags/Stack/" rel="tag"># Stack</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Backtracking/" rel="tag"># Backtracking</a>
           </div>
 
         
@@ -258,11 +256,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2021/11/18/Making-a-sudoku-game-with-Python-I/" rel="next" title="Making a sudoku game with Python I -- The sudoku generator">
-      Making a sudoku game with Python I -- The sudoku generator <i class="fa fa-chevron-right"></i>
+    <a href="/2021/11/18/Making-a-sudoku-game-with-Python-I/" rel="prev" title="Making a sudoku game with Python I -- The sudoku generator">
+      <i class="fa fa-chevron-left"></i> Making a sudoku game with Python I -- The sudoku generator
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -321,7 +319,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-stack"><span class="nav-number">1.</span> <span class="nav-text">What is stack</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-can-stack-be-used-for"><span class="nav-number">1.1.</span> <span class="nav-text">What can stack be used for?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Next-greater-element"><span class="nav-number">1.1.1.</span> <span class="nav-text">Next greater element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-Tree-Inorder-Traversal"><span class="nav-number">1.1.2.</span> <span class="nav-text">Binary Tree Inorder Traversal</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#The-sudoku-generator"><span class="nav-number">1.</span> <span class="nav-text">The sudoku generator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-remove-cell-function"><span class="nav-number">1.1.</span> <span class="nav-text">A remove cell function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Check-number-of-solution"><span class="nav-number">1.2.</span> <span class="nav-text">Check number of solution</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
